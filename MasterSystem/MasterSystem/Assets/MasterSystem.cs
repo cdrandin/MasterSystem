@@ -9,6 +9,7 @@ using System.Collections.Generic;
 //	WILL = 2
 //}
 
+[RequireComponent (typeof(MasterSystemGUI))]
 public class MasterSystem : MonoBehaviour 
 {
 	public Hashtable attributes;

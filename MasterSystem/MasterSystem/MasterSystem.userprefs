@@ -10,7 +10,7 @@
       <File FileName="Assets\CharacterAttributesLogic.cs" Line="4" Column="21" />
       <File FileName="Assets\Scripts\SimpleExample.cs" Line="25" Column="30" />
       <File FileName="Assets\MasterSystem.cs" Line="13" Column="1" />
-      <File FileName="Assets\MasterSystemGUI.cs" Line="41" Column="70" />
+      <File FileName="Assets\MasterSystemGUI.cs" Line="32" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
