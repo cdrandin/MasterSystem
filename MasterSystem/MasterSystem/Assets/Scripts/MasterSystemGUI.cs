@@ -37,7 +37,6 @@ public class MasterSystemGUI : MonoBehaviour
 		{
 			attr_lvl_text.text = string.Format("{0}/{1}", _ms.focused_attr.current_lvl, _lvl_max_amount);  // " " for max lvl
 			attr_exp_text.text = string.Format("+ {0}/{1}", _ms.focused_attr.amount.ToString("0.##"), _exp_max_amount.ToString("0.##")); // not sure how to get the max lvl from server or if we care to do so
-			Debug.Log(_ms.focused_attr.amount / _exp_max_amount);
 			attr_exp_bar.fillAmount = (float)_ms.focused_attr.amount / (float)_exp_max_amount;
 		}
 	}

@@ -5,21 +5,21 @@ using System.Collections;
 public class Currency
 {
 	[SerializeField]
-	private int _deep_iron_amount;
+	public int _deep_iron_amount;
 	public int deep_iron_amount
 	{
 		get { return _deep_iron_amount; }
 	}
 	
 	[SerializeField]
-	private int _dream_shard_amount;
+	public int _dream_shard_amount;
 	public int dream_shard_amount
 	{
 		get { return _dream_shard_amount; }
 	}
 	
 	[SerializeField]
-	private int _ethereal_dust_amount;
+	public int _ethereal_dust_amount;
 	public int ethereal_dust_amount
 	{
 		get { return _ethereal_dust_amount; }
@@ -99,7 +99,34 @@ public class Currency
 			break;
 		}
 	}
-	
+
+	/// <summary>
+	/// Compare current object and incoming object. Similiar to override +/-, but checks all
+	/// </summary>
+	/// <returns><c>true</c>, if all the currency values are >= 0., <c>false</c> otherwise.</returns>
+	/// <param name="cur">Current.</param>
+	public bool EnoughOf(Currency cur)
+	{
+		bool valid = true;
+
+		if((this.deep_iron_amount - cur.deep_iron_amount) < 0)
+		{
+			return false;
+		}
+
+		if((this.dream_shard_amount - cur.dream_shard_amount) < 0)
+		{
+			return false;
+		}
+
+		if((this.ethereal_dust_amount - cur.ethereal_dust_amount) < 0)
+		{
+			return false;
+		}
+
+		return valid;
+	}
+
 	public void Reset()
 	{
 		_deep_iron_amount     = 0;

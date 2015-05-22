@@ -67,7 +67,7 @@
      <Compile Include="Assets\MasterSystem\SoundManagerPro\Editor\SoundManagerEditorTools.cs" />
      <Compile Include="Assets\MasterSystem\SoundManagerPro\Editor\SoundPocketEditor.cs" />
  <Reference Include="Assembly-UnityScript">
- <HintPath>C:/Users/Christopher/Desktop/MasterSystem/MasterSystem__NEW/MasterSystem/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ <HintPath>C:/Users/Christopher/Desktop/MasterSystem/MasterSystem/MasterSystem/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -1,16 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MasterSystemGUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TrainerSystem.cs">
     <Files>
-      <File FileName="Assets\James Stuff\Managers\GameMaster.cs" Line="78" Column="32" />
-      <File FileName="Assets\James Stuff\Shared Data Classes\Item.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TrainerSystem.cs" Line="65" Column="30" />
+      <File FileName="Assets\Scripts\CharacterAttributes.cs" Line="36" Column="1" />
+      <File FileName="Assets\James Stuff\Managers\GameMaster.cs" Line="1" Column="1" />
+      <File FileName="Assets\James Stuff\Shared Data Classes\Item.cs" Line="11" Column="1" />
       <File FileName="Assets\James Stuff\Simulated Server\GameLogicGateway.cs" Line="1" Column="1" />
       <File FileName="Assets\James Stuff\Simulated Server\ItemLogic.cs" Line="1" Column="1" />
-      <File FileName="Assets\CharacterAttributes.cs" Line="1" Column="1" />
-      <File FileName="Assets\CharacterAttributesLogic.cs" Line="4" Column="21" />
-      <File FileName="Assets\Scripts\SimpleExample.cs" Line="25" Column="30" />
-      <File FileName="Assets\MasterSystem.cs" Line="13" Column="1" />
-      <File FileName="Assets\MasterSystemGUI.cs" Line="32" Column="3" />
+      <File FileName="Assets\Scripts\MasterSystem.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CharacterAttributesLogic.cs" Line="64" Column="1" />
+      <File FileName="Assets\Scripts\TrainerInfo.cs" Line="21" Column="1" />
+      <File FileName="Assets\Scripts\TrainerInfoLogic.cs" Line="56" Column="1" />
+      <File FileName="Assets\Scripts\SimpleExample.cs" Line="8" Column="13" />
+      <File FileName="Assets\MasterSystem\Scripts\PersistentData\CurrencyPD.cs" Line="32" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

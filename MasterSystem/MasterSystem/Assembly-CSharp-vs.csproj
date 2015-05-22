@@ -46,15 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CharacterAttributes.cs" />
-     <Compile Include="Assets\CharacterAttributesLogic.cs" />
-     <Compile Include="Assets\DimUndim.cs" />
      <Compile Include="Assets\James Stuff\Managers\GameMaster.cs" />
      <Compile Include="Assets\James Stuff\Shared Data Classes\Item.cs" />
      <Compile Include="Assets\James Stuff\Simulated Server\GameLogicGateway.cs" />
      <Compile Include="Assets\James Stuff\Simulated Server\ItemLogic.cs" />
      <Compile Include="Assets\James Stuff\Utility\XMLUtil.cs" />
-     <Compile Include="Assets\MasterSystem.cs" />
      <Compile Include="Assets\MasterSystem\AutoDestruct.cs" />
      <Compile Include="Assets\MasterSystem\JMO Assets\Cartoon FX\Demo\Assets\CFX2_Demo.cs" />
      <Compile Include="Assets\MasterSystem\JMO Assets\Cartoon FX\Demo\Assets\CFX3_Demo.cs" />
@@ -187,8 +183,15 @@
      <Compile Include="Assets\MasterSystem\SoundManagerPro\Scripts\Managers\SoundManager_SFX_Internal.cs" />
      <Compile Include="Assets\MasterSystem\SoundManagerPro\Scripts\Managers\SoundManager_Variables_Music.cs" />
      <Compile Include="Assets\MasterSystem\SoundManagerPro\Scripts\Managers\SoundManager_Variables_SFX.cs" />
-     <Compile Include="Assets\MasterSystemGUI.cs" />
+     <Compile Include="Assets\Scripts\CharacterAttributes.cs" />
+     <Compile Include="Assets\Scripts\CharacterAttributesLogic.cs" />
+     <Compile Include="Assets\Scripts\DimUndim.cs" />
+     <Compile Include="Assets\Scripts\MasterSystem.cs" />
+     <Compile Include="Assets\Scripts\MasterSystemGUI.cs" />
      <Compile Include="Assets\Scripts\SimpleExample.cs" />
+     <Compile Include="Assets\Scripts\TrainerInfo.cs" />
+     <Compile Include="Assets\Scripts\TrainerInfoLogic.cs" />
+     <Compile Include="Assets\Scripts\TrainerSystem.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
