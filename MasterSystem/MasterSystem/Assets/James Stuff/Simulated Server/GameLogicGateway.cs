@@ -12,8 +12,12 @@ public class GameLogicGateway
 	{
 		// register all callbacks
 		AddLogic ("LevelUpItem", ItemLogic.LevelUpItem);
+
 		AddLogic ("AddExp", CharacterAttributesLogic.AddExp);
+
 		AddLogic ("BeingTraining", TrainerInfoLogic.BeginTraining);
+		AddLogic ("UpdateTraining", TrainerInfoLogic.UpdateTraining);
+		AddLogic ("EndTraining", TrainerInfoLogic.EndTraining);
 	}
 
 	public static void AddLogic(string logicRequestId, RequestDelegate requestDelegate)

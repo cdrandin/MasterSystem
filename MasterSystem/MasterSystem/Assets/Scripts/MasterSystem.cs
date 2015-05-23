@@ -9,7 +9,7 @@ using System.Collections.Generic;
 //	WILL = 2
 //}
 
-[RequireComponent (typeof(MasterSystemGUI))]
+[RequireComponent (typeof(MasterSystemGUI), typeof(TrainerSystem))]
 public class MasterSystem : MonoBehaviour 
 {
 	public Hashtable attributes;
@@ -17,6 +17,13 @@ public class MasterSystem : MonoBehaviour
 	public Attribute focused_attr
 	{
 		get	{ return attributes[_focused_type] as Attribute; }
+	}
+
+	private int _total_attr_exp_amount = 0;
+
+	public void SetTotalAttrExp(int amount)
+	{
+		_total_attr_exp_amount = amount;
 	}
 
 	private int _current_exp_gain;

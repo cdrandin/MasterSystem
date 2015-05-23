@@ -6,7 +6,7 @@ using System;
 public class BeginTrainerInfo  
 {
 	public int exp_gain;
-	public int delayed_time_in_hours;
+	public float delayed_time_in_hours;
 	public string xml_datetime_start_date;
 	public Currency currency;
 }
@@ -17,4 +17,36 @@ public class ServerSideBeginTrainerInfo
 	public bool authorize_training_successful;
 	public string response_msg;
 	public Currency player_remaining_currency;
+	public string xml_datetime_end_date;
+}
+
+[System.Serializable]
+public class UpdateTrainerInfo  
+{
+	public int exp_gain;
+	public float delayed_time_in_hours;
+	public string xml_datetime_start_date;
+	public Currency currency;
+}
+
+[System.Serializable]
+public class ServerSideUpdateTrainerInfo 
+{
+	public bool training_completed;
+	public string response_msg;
+	public string xml_datetime_end_date;
+}
+
+[System.Serializable]
+public class EndTrainerInfo  
+{
+	public bool force_terminate;
+}
+
+[System.Serializable]
+public class ServerSideEndTrainerInfo
+{
+	public bool training_completed;
+	public int exp_gained_amount;
+	public string xml_datetime_end_date;
 }
