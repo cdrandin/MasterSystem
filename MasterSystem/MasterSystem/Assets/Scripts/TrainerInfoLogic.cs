@@ -4,12 +4,46 @@ using System;
 
 public class TrainerInfoLogic
 {
-	private static string server_side_trainer_end_time_id = "training_timer_server_side";
-	private static string server_side_player_currency_id = "server_side_player_currency";
-	private static string server_side_player_attr_exp_amount_id = "server_side_player_attr_exp_amount";
+	// End datetime object
+	public static string server_side_trainer_end_time_id = "training_timer_server_side";
+
+	// Currency object
+	public static string server_side_player_currency_id = "server_side_player_currency";
+
+	// int object keeping track of player's total attr exp accumulated
+	public static string server_side_player_attr_exp_amount_id = "server_side_player_attr_exp_amount";
+
+
+
+	public static void AddToServerSidePlayerAttrExp(int amount)
+	{
+		if(!PlayerPrefs.HasKey(server_side_player_attr_exp_amount_id))
+		{
+			PlayerPrefs.SetInt(server_side_player_attr_exp_amount_id, 0);
+		}
+
+		PlayerPrefs.SetInt(server_side_player_attr_exp_amount_id, PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id) + amount);
+	}
+
+	public static Currency PlayerCurrency()
+	{
+		Currency player_currency = SimpleSerializer.Load<Currency>(server_side_player_currency_id);
+		
+		// in the future possibly better to make singleton of player's currency or some unified way to organize and record it
+		if(player_currency == null)
+		{
+			player_currency = new Currency();
+			SimpleSerializer.Save<Currency>(server_side_player_currency_id, player_currency);
+		}
+
+		return player_currency;
+	}
 
 	public static Response BeginTraining(Request request)
 	{
+		// Might want to change order of things
+		// Check for currency valid then check datetime info to prevent writing then deleting if not valid
+
 		BeginTrainerInfo ti = XMLUtil.Deserialize<BeginTrainerInfo> (request.payload);
 
 		string end_date_time  = SimpleSerializer.Load<string>(server_side_trainer_end_time_id);
@@ -34,6 +68,8 @@ public class TrainerInfoLogic
 		Debug.Log(string.Format("Projected end time (UTC): {0}", projected_end_time));
 
 		ServerSideBeginTrainerInfo sti = new ServerSideBeginTrainerInfo();
+		sti.total_attr_exp_amount = PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id);
+
 		bool valid = true; // determines if the training has been thoroughly completed;
 
 		// Training still in progress...
@@ -46,37 +82,32 @@ public class TrainerInfoLogic
 
 		if(valid)
 		{
-			Currency player_currency = SimpleSerializer.Load<Currency>(server_side_player_currency_id);
-		
-			// in the future possibly better to make singleton of player's currency or some unified way to organize and record it
-			if(player_currency == null)
-			{
-				player_currency = new Currency();
-				SimpleSerializer.Save<Currency>(server_side_player_currency_id, player_currency);
-			}
+			Currency player_currency = PlayerCurrency();
 
 			Debug.Log(string.Format("Player: {0}", player_currency));
-			Debug.Log(string.Format("Cost: {0}", ti.currency));
+			Debug.Log(string.Format("Cost: {0}", ti.cost));
 
 			// player has enough money to purchase training
-			if(player_currency.EnoughOf(ti.currency))
+			if(player_currency.EnoughOf(ti.cost))
 			{
 				Debug.Log("Enough to purchase training!");
 				sti.response_msg = "Successful";
 
 				// deduct money
-				player_currency.SubTo(CURRENCY_TYPE.DEEP_IRON, (uint)ti.currency.deep_iron_amount);
-				player_currency.SubTo(CURRENCY_TYPE.DREAM_SHARD, (uint)ti.currency.dream_shard_amount);
-				player_currency.SubTo(CURRENCY_TYPE.ETHEREAL_DUST, (uint)ti.currency.ethereal_dust_amount);
+				player_currency.SubTo(CURRENCY_TYPE.DEEP_IRON, (uint)ti.cost.deep_iron_amount);
+				player_currency.SubTo(CURRENCY_TYPE.DREAM_SHARD, (uint)ti.cost.dream_shard_amount);
+				player_currency.SubTo(CURRENCY_TYPE.ETHEREAL_DUST, (uint)ti.cost.ethereal_dust_amount);
 
-				PlayerPrefs.SetInt(server_side_player_attr_exp_amount_id + PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id), ti.exp_gain);
+				SimpleSerializer.Save<Currency>(server_side_player_currency_id, player_currency);
+				AddToServerSidePlayerAttrExp(ti.exp_gain);
 				Debug.Log(string.Format("Total attr exp: {0}", PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id)));
 			}
 			else
 			{
-				Debug.Log("Cannot afford to purchase training!");
+				Debug.Log("Cannot afford to purchase training! Deleting projected end time.");
 				sti.response_msg = "Cannot afford to purchase training!";
 				valid = false;
+				PlayerPrefs.DeleteKey(server_side_trainer_end_time_id);
 			}
 
 			sti.player_remaining_currency = player_currency;
@@ -99,6 +130,9 @@ public class TrainerInfoLogic
 	public static Response UpdateTraining(Request request)
 	{
 		ServerSideUpdateTrainerInfo sti = new ServerSideUpdateTrainerInfo();
+		AddToServerSidePlayerAttrExp(0); // set total currency or just add nothing. Little bootstrap.
+		sti.total_attr_exp_amount = PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id);
+		sti.player_remaining_currency = PlayerCurrency();
 		sti.training_completed = TrainerInfoLogic.TrainingCompleted();
 		sti.xml_datetime_end_date = ""; // no date since completed
 
@@ -108,7 +142,7 @@ public class TrainerInfoLogic
 		}
 		else
 		{
-			sti.response_msg = "Training still in progress...";
+			sti.response_msg = "";
 			string end_date_time  = SimpleSerializer.Load<string>(server_side_trainer_end_time_id);
 
 			// send end time to client if one exist
@@ -116,9 +150,9 @@ public class TrainerInfoLogic
 			{
 				DateTime end = XMLUtil.Deserialize<DateTime>(SimpleSerializer.Load<string>(server_side_trainer_end_time_id)).ToUniversalTime();
 				sti.xml_datetime_end_date = XMLUtil.Serialize<DateTime>(end);
+				sti.response_msg = "Training in progress...";
 			}
 		}
-
 		Response response = new Response ();
 		response.payload = XMLUtil.Serialize<ServerSideUpdateTrainerInfo>(sti);
 		response.error = false;
@@ -136,10 +170,10 @@ public class TrainerInfoLogic
 			sti.exp_gained_amount = PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id);
 			sti.xml_datetime_end_date = ""; // no date since completed
 			sti.training_completed = true;
+			sti.response_msg = "Training was stopped";
 
 			// delete stores records since training is over
 			PlayerPrefs.DeleteKey(server_side_trainer_end_time_id);
-//			PlayerPrefs.DeleteKey(server_side_player_attr_exp_amount_id);
 		}
 		else
 		{
@@ -148,13 +182,17 @@ public class TrainerInfoLogic
 				sti.exp_gained_amount = PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id) ;
 				sti.xml_datetime_end_date = ""; // no date since completed
 				sti.training_completed = true;
+				sti.response_msg = "Training completed";
+				Debug.Log(sti.response_msg);
 
 				// delete stores records since training is over
 				PlayerPrefs.DeleteKey(server_side_trainer_end_time_id);
-//				PlayerPrefs.DeleteKey(server_side_player_attr_exp_amount_id);
 			}
 			else
 			{
+				sti.response_msg = "Training still in progress...";
+				Debug.Log(sti.response_msg);
+				
 				// training still in progress. Give end time to client.
 				sti.xml_datetime_end_date = SimpleSerializer.Load<string>(server_side_trainer_end_time_id);
 			}

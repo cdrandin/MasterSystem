@@ -13,7 +13,9 @@ public class GameLogicGateway
 		// register all callbacks
 		AddLogic ("LevelUpItem", ItemLogic.LevelUpItem);
 
-		AddLogic ("AddExp", CharacterAttributesLogic.AddExp);
+		AddLogic ("AddAttributeExp", CharacterAttributesLogic.AddAttributeExp);
+		AddLogic ("UpdateAttributes", CharacterAttributesLogic.UpdateAttributes);
+		AddLogic ("SubmitAttrExpLevel", CharacterAttributesLogic.SubmitAttrExpLevel);
 
 		AddLogic ("BeingTraining", TrainerInfoLogic.BeginTraining);
 		AddLogic ("UpdateTraining", TrainerInfoLogic.UpdateTraining);

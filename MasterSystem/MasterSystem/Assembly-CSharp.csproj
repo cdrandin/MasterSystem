@@ -192,6 +192,7 @@
      <Compile Include="Assets\Scripts\TrainerInfo.cs" />
      <Compile Include="Assets\Scripts\TrainerInfoLogic.cs" />
      <Compile Include="Assets\Scripts\TrainerSystem.cs" />
+     <Compile Include="Assets\TrainingSessionInfo.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
