@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 public enum ATTRIBUTE_TYPE
@@ -60,28 +61,30 @@ public class CharacterAttributesLogic
 
 	public static ServerSideUpdateAttribute GetServerSideAttributes()
 	{
-		ServerSideUpdateAttribute ssua = SimpleSerializer.Load<ServerSideUpdateAttribute>(server_side_character_attributes_id);
-		if(ssua == null)
+//		ServerSideUpdateAttribute ssua = SimpleSerializer.Load<ServerSideUpdateAttribute>(server_side_character_attributes_id);
+		GetCreatePair<ServerSideUpdateAttribute> ssua_pair = SimpleSerializer.GetOrCreateWithStatus<ServerSideUpdateAttribute>(server_side_character_attributes_id);
+
+		if(ssua_pair.created)
 		{
 			Debug.Log("Creating new server side attributes object");
 
-			ssua = new ServerSideUpdateAttribute();
-			ssua.str = new Attribute(ATTRIBUTE_TYPE.STR);
-			ssua.str.current_lvl = 1;
-			ssua.str.exp_amount = 0;
+//			ssua = new ServerSideUpdateAttribute();
+			ssua_pair.obj.str = new Attribute(ATTRIBUTE_TYPE.STR);
+			ssua_pair.obj.str.current_lvl = 1;
+			ssua_pair.obj.str.exp_amount = 0;
 
-			ssua.dex = new Attribute(ATTRIBUTE_TYPE.DEX);
-			ssua.dex.current_lvl = 1;
-			ssua.dex.exp_amount = 0;
+			ssua_pair.obj.dex = new Attribute(ATTRIBUTE_TYPE.DEX);
+			ssua_pair.obj.dex.current_lvl = 1;
+			ssua_pair.obj.dex.exp_amount = 0;
 
-			ssua.will = new Attribute(ATTRIBUTE_TYPE.WILL);
-			ssua.will.current_lvl = 1;
-			ssua.will.exp_amount = 0;
+			ssua_pair.obj.will = new Attribute(ATTRIBUTE_TYPE.WILL);
+			ssua_pair.obj.will.current_lvl = 1;
+			ssua_pair.obj.will.exp_amount = 0;
 
-			SimpleSerializer.Save<ServerSideUpdateAttribute>(server_side_character_attributes_id, ssua);
+//			SimpleSerializer.Save<ServerSideUpdateAttribute>(server_side_character_attributes_id, ssua);
 		}
 
-		return ssua;
+		return ssua_pair.obj;
 	}
 
 	public static Response AddAttributeExp(Request request)

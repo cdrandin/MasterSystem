@@ -26,6 +26,11 @@ public class Attribute
 	{
 		return string.Format ("[Attribute]: Type: {0} LvL: {1}  Exp: {2}", this.attr_type, this.current_lvl, this.current_exp_amount);
 	}
+
+	public Attribute Create()
+	{
+		return new Attribute();
+	}
 }
 
 // Update Attribute objects
@@ -41,6 +46,11 @@ public class ServerSideUpdateAttribute
 	{
 		return string.Format ("[ServerSideUpdateAttribute]: Str: {0},  Dex: {1},  Will: {2}", this.str, this.dex, this.will);
 	}
+
+	public ServerSideUpdateAttribute Create()
+	{
+		return new ServerSideUpdateAttribute();
+	}
 }
 
 
@@ -49,6 +59,11 @@ public class ServerSideAttribute
 {
 	public Attribute attr;
 	public int exp_amount;
+
+	public ServerSideAttribute Create()
+	{
+		return new ServerSideAttribute();
+	}
 }
 
 

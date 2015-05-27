@@ -1,14 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MasterSystem.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tuple.cs">
     <Files>
-      <File FileName="Assets\Scripts\MasterSystem.cs" Line="143" Column="3" />
+      <File FileName="Assets\Scripts\TrainerInfoLogic.cs" Line="24" Column="3" />
+      <File FileName="Assets\Scripts\MasterSystem.cs" Line="1" Column="1" />
       <File FileName="Assets\James Stuff\Simulated Server\GameLogicGateway.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MasterSystemGUI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CharacterAttributes.cs" Line="27" Column="127" />
+      <File FileName="Assets\Scripts\CharacterAttributes.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CharacterAttributesLogic.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\TrainerInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TrainerInfoLogic.cs" Line="41" Column="1" />
+      <File FileName="Assets\Scripts\TrainerSystem.cs" Line="1" Column="1" />
+      <File FileName="Assets\MasterSystem\Scripts\Utilities\SimpleSerializer.cs" Line="21" Column="45" />
+      <File FileName="Assets\Scripts\Tuple.cs" Line="3" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

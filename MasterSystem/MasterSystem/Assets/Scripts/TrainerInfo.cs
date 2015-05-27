@@ -5,7 +5,7 @@ using System;
 // Begin training objects
 
 [System.Serializable]
-public class BeginTrainerInfo  
+public class BeginTrainerInfo
 {
 	public int exp_gain;
 	public float delayed_time_in_hours;
@@ -14,13 +14,18 @@ public class BeginTrainerInfo
 }
 
 [System.Serializable]
-public class ServerSideBeginTrainerInfo  
+public class ServerSideBeginTrainerInfo
 {
 	public bool authorize_training_successful;
 	public string response_msg;
 	public Currency player_remaining_currency;
 	public string xml_datetime_end_date;
 	public int total_attr_exp_amount;
+
+	public ServerSideBeginTrainerInfo Create()
+	{
+		return new ServerSideBeginTrainerInfo();
+	}
 }
 
 // -------------------------------------
@@ -36,13 +41,18 @@ public class UpdateTrainerInfo
 }
 
 [System.Serializable]
-public class ServerSideUpdateTrainerInfo 
+public class ServerSideUpdateTrainerInfo
 {
 	public bool training_completed;
 	public string response_msg;
 	public Currency player_remaining_currency;
 	public string xml_datetime_end_date;
 	public int total_attr_exp_amount;
+
+	public ServerSideUpdateTrainerInfo Create()
+	{
+		return new ServerSideUpdateTrainerInfo();
+	}
 }
 
 // -------------------------------------
@@ -61,4 +71,9 @@ public class ServerSideEndTrainerInfo
 	public string response_msg;
 	public int exp_gained_amount;
 	public string xml_datetime_end_date;
+
+	public ServerSideEndTrainerInfo Create()
+	{
+		return new ServerSideEndTrainerInfo();
+	}
 }

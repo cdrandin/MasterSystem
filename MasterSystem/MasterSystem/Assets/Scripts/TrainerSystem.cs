@@ -39,7 +39,7 @@ public class TrainerSystem : MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.P))
 		{
-			Currency set_currency = TrainerInfoLogic.PlayerCurrency();
+			Currency set_currency = SimpleSerializer.GetOrCreate<Currency>(TrainerInfoLogic.server_side_player_currency_id);
 			set_currency.AddTo(CURRENCY_TYPE.DEEP_IRON, 1000);
 			set_currency.AddTo(CURRENCY_TYPE.DREAM_SHARD, 1000);
 			set_currency.AddTo(CURRENCY_TYPE.ETHEREAL_DUST, 1000);

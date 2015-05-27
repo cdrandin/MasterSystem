@@ -5,8 +5,59 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
+public class GetCreatePair <T> where T: class
+{
+	public T obj;
+	public bool created;
+
+	public GetCreatePair(T obj, bool v)
+	{
+		this.obj = obj;
+		this.created = v;
+	}
+}
+
 public class SimpleSerializer
 {
+	// http://answers.unity3d.com/questions/19649/unity-doesnt-like-my-where-constraints-in-my-c-scr.html#answer-19658
+	/// <summary>
+	/// Gets or creates the object when checking against the system.
+	/// </summary>
+	/// <returns>The object to the corresponding key or a new one if one did not exist.</returns>
+	/// <param name="key">Key.</param>
+	/// <typeparam name="T">The 1st type parameter.</typeparam>
+	public static T GetOrCreate<T>(string key) where T: class, new()
+	{
+		T o = SimpleSerializer.Load<T>(key);
+		if(o == null)
+		{
+			o = new T();
+			SimpleSerializer.Save<T>(key, o);
+		}
+		return o;
+	}
+
+	/// <summary>
+	/// Gets or creates the object when checking against the system. 
+	/// The returned object includes a boolean if the object was newly created or not.
+	/// </summary>
+	/// <returns>A KetValuePair containing the object to the corresponding key or a new one if one did not exist and if the object was newly created or not.</returns>
+	/// <param name="key">Key.</param>
+	/// <typeparam name="T">The 1st type parameter.</typeparam>
+	public static GetCreatePair<T> GetOrCreateWithStatus<T>(string key) where T: class, new()
+	{
+		T o = SimpleSerializer.Load<T>(key);
+		bool new_obj = false;
+		if(o == null)
+		{
+			o = new T();
+			SimpleSerializer.Save<T>(key, o);
+			new_obj = true;
+		}
+
+		return new GetCreatePair<T>(o, new_obj);
+	}
+
 	/// <summary>
 	/// Save the specified key and data. DATA WILL OVERRIDE EXISTING.
 	/// </summary>

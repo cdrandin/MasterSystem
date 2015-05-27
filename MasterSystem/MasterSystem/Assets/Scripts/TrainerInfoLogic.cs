@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class TrainerInfoLogic
@@ -13,8 +14,6 @@ public class TrainerInfoLogic
 	// int object keeping track of player's total attr exp accumulated
 	public static string server_side_player_attr_exp_amount_id = "server_side_player_attr_exp_amount";
 
-
-
 	public static void AddToServerSidePlayerAttrExp(int amount)
 	{
 		if(!PlayerPrefs.HasKey(server_side_player_attr_exp_amount_id))
@@ -23,20 +22,6 @@ public class TrainerInfoLogic
 		}
 
 		PlayerPrefs.SetInt(server_side_player_attr_exp_amount_id, PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id) + amount);
-	}
-
-	public static Currency PlayerCurrency()
-	{
-		Currency player_currency = SimpleSerializer.Load<Currency>(server_side_player_currency_id);
-		
-		// in the future possibly better to make singleton of player's currency or some unified way to organize and record it
-		if(player_currency == null)
-		{
-			player_currency = new Currency();
-			SimpleSerializer.Save<Currency>(server_side_player_currency_id, player_currency);
-		}
-
-		return player_currency;
 	}
 
 	public static Response BeginTraining(Request request)
@@ -82,7 +67,7 @@ public class TrainerInfoLogic
 
 		if(valid)
 		{
-			Currency player_currency = PlayerCurrency();
+			Currency player_currency = SimpleSerializer.GetOrCreate<Currency>(server_side_player_currency_id);
 
 			Debug.Log(string.Format("Player: {0}", player_currency));
 			Debug.Log(string.Format("Cost: {0}", ti.cost));
@@ -107,7 +92,7 @@ public class TrainerInfoLogic
 				Debug.Log("Cannot afford to purchase training! Deleting projected end time.");
 				sti.response_msg = "Cannot afford to purchase training!";
 				valid = false;
-				PlayerPrefs.DeleteKey(server_side_trainer_end_time_id);
+				PlayerPrefs.DeleteKey(server_side_trainer_end_time_id); // find better way than deleting it, possibly check first
 			}
 
 			sti.player_remaining_currency = player_currency;
@@ -115,11 +100,6 @@ public class TrainerInfoLogic
 
 		sti. xml_datetime_end_date = XMLUtil.Serialize<DateTime>(projected_end_time);
 		sti.authorize_training_successful = valid;
-
-//		if(!valid)
-//		{
-//			PlayerPrefs.DeleteKey(server_side_trainer_end_time_id);
-//		} 
 
 		Response response = new Response ();
 		response.payload = XMLUtil.Serialize<ServerSideBeginTrainerInfo>(sti);
@@ -132,7 +112,7 @@ public class TrainerInfoLogic
 		ServerSideUpdateTrainerInfo sti = new ServerSideUpdateTrainerInfo();
 		AddToServerSidePlayerAttrExp(0); // set total currency or just add nothing. Little bootstrap.
 		sti.total_attr_exp_amount = PlayerPrefs.GetInt(server_side_player_attr_exp_amount_id);
-		sti.player_remaining_currency = PlayerCurrency();
+		sti.player_remaining_currency = SimpleSerializer.GetOrCreate<Currency>(server_side_player_currency_id);
 		sti.training_completed = TrainerInfoLogic.TrainingCompleted();
 		sti.xml_datetime_end_date = ""; // no date since completed
 
