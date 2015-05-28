@@ -55,7 +55,7 @@ public class MasterSystem : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.L))
 		{
 			PlayerPrefs.DeleteKey(CharacterAttributesLogic.server_side_character_attributes_id);
-			PlayerPrefs.DeleteAll();
+//			PlayerPrefs.DeleteAll();
 		}
 	}
 
