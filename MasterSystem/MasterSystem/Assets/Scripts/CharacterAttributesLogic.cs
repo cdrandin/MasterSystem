@@ -15,6 +15,7 @@ public class CharacterAttributesLogic
 	private static int max_level = 100;
 	private static int max_attr_amount = 3000;
 	public static string server_side_character_attributes_id = "server_side_character_attributes";
+	public static string server_side_character_list_attributes_id = "server_side_character_list_attributes";
 
 //	private static int[] valid_exp_amounts = new int[]{100, 1000};
 

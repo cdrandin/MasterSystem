@@ -21,11 +21,6 @@ public class ServerSideBeginTrainerInfo
 	public Currency player_remaining_currency;
 	public string xml_datetime_end_date;
 	public int total_attr_exp_amount;
-
-	public ServerSideBeginTrainerInfo Create()
-	{
-		return new ServerSideBeginTrainerInfo();
-	}
 }
 
 // -------------------------------------
@@ -48,11 +43,6 @@ public class ServerSideUpdateTrainerInfo
 	public Currency player_remaining_currency;
 	public string xml_datetime_end_date;
 	public int total_attr_exp_amount;
-
-	public ServerSideUpdateTrainerInfo Create()
-	{
-		return new ServerSideUpdateTrainerInfo();
-	}
 }
 
 // -------------------------------------
@@ -71,9 +61,4 @@ public class ServerSideEndTrainerInfo
 	public string response_msg;
 	public int exp_gained_amount;
 	public string xml_datetime_end_date;
-
-	public ServerSideEndTrainerInfo Create()
-	{
-		return new ServerSideEndTrainerInfo();
-	}
 }
