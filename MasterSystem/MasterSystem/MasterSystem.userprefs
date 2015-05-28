@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MasterSystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CharacterAttributes.cs">
     <Files>
       <File FileName="Assets/Scripts/CharacterAttributes.cs" Line="52" Column="1" />
       <File FileName="Assets/Scripts/CharacterAttributesLogic.cs" Line="17" Column="58" />
