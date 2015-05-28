@@ -7,15 +7,19 @@ public enum ATTRIBUTE_TYPE
 {
 	STR = 0,
 	DEX = 1,
-	WILL = 2
+	WILL = 2,
+	NONE = 3
 }
 
 public class CharacterAttributesLogic
 {
 	private static int max_level = 100;
 	private static int max_attr_amount = 3000;
+
+	// public just so I can modify directly "illegally"
 	public static string server_side_character_attributes_id = "server_side_character_attributes";
-	public static string server_side_character_list_attributes_id = "server_side_character_list_attributes";
+
+//	public static string server_side_character_list_attributes_id = "server_side_character_list_attributes";
 
 //	private static int[] valid_exp_amounts = new int[]{100, 1000};
 
@@ -71,17 +75,8 @@ public class CharacterAttributesLogic
 
 //			ssua = new ServerSideUpdateAttribute();
 			ssua_pair.obj.str = new Attribute(ATTRIBUTE_TYPE.STR);
-			ssua_pair.obj.str.current_lvl = 1;
-			ssua_pair.obj.str.exp_amount = 0;
-
 			ssua_pair.obj.dex = new Attribute(ATTRIBUTE_TYPE.DEX);
-			ssua_pair.obj.dex.current_lvl = 1;
-			ssua_pair.obj.dex.exp_amount = 0;
-
 			ssua_pair.obj.will = new Attribute(ATTRIBUTE_TYPE.WILL);
-			ssua_pair.obj.will.current_lvl = 1;
-			ssua_pair.obj.will.exp_amount = 0;
-
 //			SimpleSerializer.Save<ServerSideUpdateAttribute>(server_side_character_attributes_id, ssua);
 		}
 

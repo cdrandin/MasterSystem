@@ -46,13 +46,16 @@ public class MasterSystem : MonoBehaviour
 	{
 		_ts = this.GetComponent<TrainerSystem>();
 		UpdateAttributes();
+
+		Debug.Log(ServerSidePersistantDataMultipleCharacterAttribute.instance.GetCharacter("Warrior"));
 	}
 
 	public void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.PageDown))
+		if(Input.GetKeyDown(KeyCode.L))
 		{
 			PlayerPrefs.DeleteKey(CharacterAttributesLogic.server_side_character_attributes_id);
+			PlayerPrefs.DeleteAll();
 		}
 	}
 
