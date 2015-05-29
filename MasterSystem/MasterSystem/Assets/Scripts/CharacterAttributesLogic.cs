@@ -87,6 +87,7 @@ public class CharacterAttributesLogic
 	{
 		ServerSideAttribute server_attr = XMLUtil.Deserialize<ServerSideAttribute> (request.payload);
 		Attribute attr = server_attr.attr;
+//		Attribute attr = ServerSidePersistantDataMultipleCharacterAttribute.instance.GetCharacter(server_attr.character_id).GetAttribute(server_attr.attr.attr_type);
 
 		if(attr.current_lvl < max_level)
 		{
@@ -136,6 +137,8 @@ public class CharacterAttributesLogic
 
 	public static Response UpdateAttributes(Request request)
 	{
+		Debug.LogError(request.payload);
+		
 		ServerSideUpdateAttribute ssua = GetServerSideAttributes();
 		Debug.Log(string.Format("UpdateAttributes: {0}", ssua));
 

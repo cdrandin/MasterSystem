@@ -49,12 +49,16 @@ public class ServerSideUpdateAttribute
 [System.Serializable]
 public class ServerSideAttribute
 {
+	public string character_id;
 	public Attribute attr;
 	public int exp_amount;
 }
 
 
+//
 // Server side persistant data class
+//
+
 // Really bad way of doing it since classes may end up becoming very bloated and requires writing and read all of it everytime
 // will do for now
 [System.Serializable]
@@ -98,7 +102,7 @@ public class ServerSidePersistantDataMultipleCharacterAttribute
 		if(pair.created)
 		{
 			characters = new List<ServerSiderPersistantDataCharacter>();
-			characters.Add(new ServerSiderPersistantDataCharacter("Ranger"));
+			characters.Add(new ServerSiderPersistantDataCharacter("Archer"));
 			characters.Add(new ServerSiderPersistantDataCharacter("Warrior"));
 			characters.Add(new ServerSiderPersistantDataCharacter("Mystic"));
 			Save(); // don't forget to save
@@ -132,6 +136,29 @@ public class ServerSiderPersistantDataCharacter
 	{
 		this.id = id;
 		character_attribute = new ServerSiderPersistantDataCharacterAttribute();
+	}
+
+	public Attribute GetAttribute(ATTRIBUTE_TYPE type)
+	{
+		Attribute attr;
+		
+		switch(type)
+		{
+		case ATTRIBUTE_TYPE.STR:
+			attr = character_attribute.str;
+			break;
+		case ATTRIBUTE_TYPE.DEX:
+			attr = character_attribute.dex;
+			break;
+		case ATTRIBUTE_TYPE.WILL:
+			attr = character_attribute.will;
+			break;
+		default:
+			attr = null;
+			break;
+		}
+		
+		return attr;
 	}
 
 	public override string ToString ()

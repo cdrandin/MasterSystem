@@ -18,10 +18,16 @@ public class MasterSystemGUI : MonoBehaviour
 
 	public Text currency_amount_text;
 
+	public Text text_background_unit_name_text;
+	public Text text_background_str_text;
+	public Text text_background_dex_text;
+	public Text text_background_will_text;
+
 	private float delay = 1/25;
 
 	private MasterSystem _ms;
 	private TrainerSystem _ts;
+	private UnitSelectionLogic _usl;
 
 	private int _lvl_max_amount = 100;
 	private int _exp_max_amount = 3000;
@@ -30,6 +36,8 @@ public class MasterSystemGUI : MonoBehaviour
 	void Start () {
 		_ms = this.GetComponent<MasterSystem>();
 		_ts = this.GetComponent<TrainerSystem>();
+		_usl = this.GetComponent<UnitSelectionLogic>();
+
 		response_text.text = "";
 
 		StartCoroutine(MyDelyedUpdate(delay));
@@ -62,6 +70,14 @@ public class MasterSystemGUI : MonoBehaviour
 		current_attr_exp_gain_text.text = _ms.current_exp_gain.ToString("0.##");
 		currency_amount_text.text = SimpleCurrencyToString();
 
+		Attribute str = _ms.attributes[ATTRIBUTE_TYPE.STR] as Attribute;
+		Attribute dex = _ms.attributes[ATTRIBUTE_TYPE.DEX] as Attribute;
+		Attribute will = _ms.attributes[ATTRIBUTE_TYPE.WILL] as Attribute;
+
+		text_background_unit_name_text.text = string.Format("{0}", _usl.focused_id);
+		text_background_str_text.text = string.Format("STR: {0}", str.current_lvl);
+		text_background_dex_text.text = string.Format("DEX: {0}", dex.current_lvl);
+		text_background_will_text.text = string.Format("WILL: {0}", will.current_lvl);
 	}
 
 	public void SetResponseText(string str, Color? color = null)

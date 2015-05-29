@@ -19,6 +19,16 @@ public class MasterSystem : MonoBehaviour
 		get	{ return attributes[_focused_type] as Attribute; }
 	}
 
+	private string _focused_unit_id;
+	public string focused_unit_id
+	{
+		get	{ return _focused_unit_id; }
+	}
+	public void SetFocusUnitId(string unit_id)
+	{
+		_focused_unit_id = unit_id;
+	}
+
 	private int _total_attr_exp_amount = 0;
 
 	public void SetTotalAttrExp(int amount)
@@ -99,6 +109,7 @@ public class MasterSystem : MonoBehaviour
 	private void AddAttributeExp(Attribute attr, int amount)
 	{
 		ServerSideAttribute server_attr = new ServerSideAttribute();
+		server_attr.character_id = _focused_unit_id;
 		server_attr.attr = attr;
 		server_attr.exp_amount = amount;
 
@@ -128,9 +139,10 @@ public class MasterSystem : MonoBehaviour
 
 	public void UpdateAttributes()
 	{
+		Debug.Log(string.Format(">> {0} <<", _focused_unit_id));
 		Request request = new Request ();
 		request.id = "UpdateAttributes";
-		request.payload = "";
+		request.payload = _focused_unit_id ; // just pass the character id along
 		request.callback = UpdateAttributesCallback;
 		GameMaster.SendRequest (request);
 	}
