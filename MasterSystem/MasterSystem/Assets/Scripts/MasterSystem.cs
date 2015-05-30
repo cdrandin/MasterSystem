@@ -50,6 +50,7 @@ public class MasterSystem : MonoBehaviour
 		attributes[ATTRIBUTE_TYPE.STR] = new Attribute(ATTRIBUTE_TYPE.STR);
 		attributes[ATTRIBUTE_TYPE.DEX] = new Attribute(ATTRIBUTE_TYPE.DEX);
 		attributes[ATTRIBUTE_TYPE.WILL] = new Attribute(ATTRIBUTE_TYPE.WILL);
+		SetAttrStrFocus();
 	}
 
 	public void Start()
@@ -139,7 +140,7 @@ public class MasterSystem : MonoBehaviour
 
 	public void UpdateAttributes()
 	{
-		Debug.Log(string.Format(">> {0} <<", _focused_unit_id));
+//		Debug.Log(string.Format(">> {0} <<", _focused_unit_id));
 		Request request = new Request ();
 		request.id = "UpdateAttributes";
 		request.payload = _focused_unit_id ; // just pass the character id along

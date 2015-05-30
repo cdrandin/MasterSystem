@@ -18,16 +18,16 @@ public class TrainerSystem : MonoBehaviour {
 	private Coroutine _training_stop_event;
 	private MasterSystemGUI _msg;
 
-	public void Start()
+	public void Awake()
 	{
 		_msg = this.GetComponent<MasterSystemGUI>();
 
 		_training_stop_event = null;
+	}
 
-		if(_training_stop_event == null)
-		{
-			UpdateTraining();
-		}
+	public void Start()
+	{
+		UpdateTraining();
 	}
 
 	public void Update()

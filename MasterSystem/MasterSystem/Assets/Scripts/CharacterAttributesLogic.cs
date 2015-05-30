@@ -68,7 +68,6 @@ public class CharacterAttributesLogic
 	{
 //		ServerSideUpdateAttribute ssua = SimpleSerializer.Load<ServerSideUpdateAttribute>(server_side_character_attributes_id);
 		GetCreatePair<ServerSideUpdateAttribute> ssua_pair = SimpleSerializer.GetOrCreateWithStatus<ServerSideUpdateAttribute>(server_side_character_attributes_id);
-
 		if(ssua_pair.created)
 		{
 			Debug.Log("Creating new server side attributes object");
@@ -83,11 +82,22 @@ public class CharacterAttributesLogic
 		return ssua_pair.obj;
 	}
 
+	public static ServerSideUpdateAttribute GetServerSideAttributes(string unit_id)
+	{
+		ServerSiderPersistantDataCharacterAttribute sspdca = ServerSidePersistantDataMultipleCharacterAttribute.instance.GetCharacter(unit_id).character_attribute;
+		ServerSideUpdateAttribute ssua = new ServerSideUpdateAttribute();
+		ssua.str = sspdca.str;
+		ssua.dex = sspdca.dex;
+		ssua.will = sspdca.will;
+
+		return ssua;
+	}
+
 	public static Response AddAttributeExp(Request request)
 	{
 		ServerSideAttribute server_attr = XMLUtil.Deserialize<ServerSideAttribute> (request.payload);
-		Attribute attr = server_attr.attr;
-//		Attribute attr = ServerSidePersistantDataMultipleCharacterAttribute.instance.GetCharacter(server_attr.character_id).GetAttribute(server_attr.attr.attr_type);
+//		Attribute attr = server_attr.attr;
+		Attribute attr = ServerSidePersistantDataMultipleCharacterAttribute.instance.GetCharacter(server_attr.character_id).GetAttribute(server_attr.attr.attr_type);
 
 		if(attr.current_lvl < max_level)
 		{
@@ -126,6 +136,8 @@ public class CharacterAttributesLogic
 			}
 
 			SetAttributeToServerSideAttributes(attr.attr_type, attr);
+			ServerSidePersistantDataMultipleCharacterAttribute.instance.GetCharacter(server_attr.character_id).SetAttribute(attr);
+			ServerSidePersistantDataMultipleCharacterAttribute.instance.Save();
 		}
 		
 		Response response = new Response ();
@@ -137,10 +149,9 @@ public class CharacterAttributesLogic
 
 	public static Response UpdateAttributes(Request request)
 	{
-		Debug.LogError(request.payload);
-		
-		ServerSideUpdateAttribute ssua = GetServerSideAttributes();
-		Debug.Log(string.Format("UpdateAttributes: {0}", ssua));
+//		Debug.LogError(request.payload);
+		ServerSideUpdateAttribute ssua = GetServerSideAttributes(request.payload);
+//		Debug.Log(string.Format("UpdateAttributes: {0}", ssua));
 
 		// Just send an update of the characters attributes
 		Response response = new Response ();

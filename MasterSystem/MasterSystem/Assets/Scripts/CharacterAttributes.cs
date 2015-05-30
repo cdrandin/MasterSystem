@@ -161,6 +161,25 @@ public class ServerSiderPersistantDataCharacter
 		return attr;
 	}
 
+	public void SetAttribute(Attribute attr)
+	{
+		switch(attr.attr_type)
+		{
+		case ATTRIBUTE_TYPE.STR:
+			character_attribute.str = attr;
+			break;
+		case ATTRIBUTE_TYPE.DEX:
+			character_attribute.dex = attr;
+			break;
+		case ATTRIBUTE_TYPE.WILL:
+			character_attribute.will = attr;
+			break;
+		default:
+			attr = null;
+			break;
+		}
+	}
+
 	public override string ToString ()
 	{
 		return string.Format ("[ServerSiderPersistantDataCharacter]: id: {0}  {1}", this.id, character_attribute);

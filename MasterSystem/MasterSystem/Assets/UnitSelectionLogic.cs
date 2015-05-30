@@ -46,7 +46,7 @@ public class UnitSelectionLogic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		SetId();
 	}
 
 	private void Swap<T>(T[] data, int a, int b) {
@@ -96,6 +96,6 @@ public class UnitSelectionLogic : MonoBehaviour {
 
 	public void SetId()
 	{
-		_ms.SetFocusUnitId(this.focused_id);
+		_ms.SetFocusUnitId(focused_id);
 	}
 }
