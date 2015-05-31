@@ -16,7 +16,9 @@ public class MasterSystemGUI : MonoBehaviour
 	public Text current_datetime_text;
 	public Text end_datetime_text;
 
-	public Text currency_amount_text;
+	public Text deep_iron_amount_text;
+	public Text dream_shard_amount_text;
+	public Text ethereal_dust_amount_text;
 
 	public Text text_background_unit_name_text;
 	public Text text_background_str_text;
@@ -71,7 +73,10 @@ public class MasterSystemGUI : MonoBehaviour
 
 		total_attr_exp_gain_text.text = _ts.total_attr_exp_amount.ToString("0.##");
 		current_attr_exp_gain_text.text = _ms.current_exp_gain.ToString("0.##");
-		currency_amount_text.text = SimpleCurrencyToString();
+	
+		deep_iron_amount_text.text = _ts.player_currency.deep_iron_amount.ToString();
+		dream_shard_amount_text.text = _ts.player_currency.dream_shard_amount.ToString();
+		ethereal_dust_amount_text.text = _ts.player_currency.ethereal_dust_amount.ToString();
 
 		Attribute str  = _ms.attributes[ATTRIBUTE_TYPE.STR] as Attribute;
 		Attribute dex  = _ms.attributes[ATTRIBUTE_TYPE.DEX] as Attribute;
@@ -92,10 +97,5 @@ public class MasterSystemGUI : MonoBehaviour
 		{
 			response_text.text = "";
 		}, 3f);
-	}
-
-	private string SimpleCurrencyToString()
-	{
-		return string.Format("Deep Iron: {0} Dream Shard: {1} Ethereal Dust: {2}", _ts.player_currency.deep_iron_amount, _ts.player_currency.dream_shard_amount, _ts.player_currency.ethereal_dust_amount);
 	}
 }
