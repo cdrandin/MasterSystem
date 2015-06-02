@@ -20,10 +20,10 @@ public class MasterSystemGUI : MonoBehaviour
 	public Text dream_shard_amount_text;
 	public Text ethereal_dust_amount_text;
 
-	public Text text_background_unit_name_text;
-	public Text text_background_str_text;
-	public Text text_background_dex_text;
-	public Text text_background_will_text;
+	public Text unit_name_text;
+	public Text str_text;
+	public Text dex_text;
+	public Text will_text;
 
 	private float delay = 1/25;
 
@@ -82,11 +82,11 @@ public class MasterSystemGUI : MonoBehaviour
 		Attribute dex  = _ms.attributes[ATTRIBUTE_TYPE.DEX] as Attribute;
 		Attribute will = _ms.attributes[ATTRIBUTE_TYPE.WILL] as Attribute;
 			
-		text_background_unit_name_text.text = string.Format("{0}", _usl.focused_id);
+		unit_name_text.text = string.Format("{0}", _usl.focused_id);
 			
-		text_background_str_text.text = string.Format("STR: {0}", str.current_lvl);
-		text_background_dex_text.text = string.Format("DEX: {0}", dex.current_lvl);
-		text_background_will_text.text = string.Format("WILL: {0}", will.current_lvl);
+		str_text.text = string.Format("{0}", str.current_lvl);
+		dex_text.text = string.Format("{0}", dex.current_lvl);
+		will_text.text = string.Format("{0}", will.current_lvl);
 	}
 
 	public void SetResponseText(string str, Color? color = null)
